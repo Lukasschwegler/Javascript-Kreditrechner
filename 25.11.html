@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreditrechner</title>
+</head>
+<body>
+
+<h2>Kreditrechner</h2>
+
+<!-- Eingabefelder -->
+<label for="kreditbetrag">Kreditbetrag (€)</label>
+<input type="number" id="kreditbetrag" placeholder="Betrag in Euro">
+<br><br>
+
+<label for="jahre">Laufzeit (Jahre)</label>
+<input type="number" id="jahre" placeholder="Laufzeit in Jahren">
+<br><br>
+
+<label for="zinsen">Zinssatz (%)</label>
+<input type="number" id="zinsen" placeholder="Zinssatz in Prozent">
+<br><br>
+
+<label for="rate">Monatliche Rate</label>
+<input type="number" id="rate" name="rate" placeholder="Geben Sie Ihre Stadt ein">
+<br><br>
+
+<!-- Button -->
+<button id="berechnen-button">Berechnen</button>
+
+<!-- Ergebnisse -->
+<p id="result1"></p>
+<p id="result2"></p>
+<p id="result3"></p>
+<p id="result4"></p>
+<p id="result5"></p>
+
+<script>
+    // Funktion zur Berechnung der monatlichen Kreditrate
+    function kreditrateBerechnen(kreditbetrag, zinssatz, jahre) {
+        const r = (zinssatz / 100) / 12; // Monatlicher Zinssatz
+        const n = jahre * 12; // Anzahl der Monate
+        return (kreditbetrag * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    }
+
+    // Event-Listener für den Button
+    document.getElementById("berechnen-button").addEventListener("click", () => {
+        // Eingaben abrufen
+        const kreditbetrag = parseFloat(document.getElementById("kreditbetrag").value);
+        const jahre = parseInt(document.getElementById("jahre").value);
+        const zinsen = parseFloat(document.getElementById("zinsen").value);
+        const rate = parseFloat(document.getElementById("rate").value);
+
+        // Validierung
+        if (isNaN(kreditbetrag) || isNaN(jahre) || isNaN(zinsen)) {
+            document.getElementById("result1").innerText = "Bitte gültige Werte eingeben!";
+            return;
+        }
+
+        // Berechnung
+        const monatliche = kreditrateBerechnen(kreditbetrag, zinsen, jahre);
+
+        // Ergebnisse anzeigen
+        document.getElementById("result1").innerText = `Kreditbetrag: ${kreditbetrag} €`;
+        document.getElementById("result2").innerText = `Laufzeit: ${jahre} `;
+        document.getElementById("result3").innerText = `Zinssatz: ${zinsen} %`;
+        document.getElementById("result4").innerText = `Monatliche Rate: ${rate} €`;
+        document.getElementById("result5").innerText = `Rate bei Volltilgung: ${monatliche.toFixed(2)} €`;
+    });
+</script>
+
+</body>
+</html>
