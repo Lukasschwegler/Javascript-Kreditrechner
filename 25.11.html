@@ -35,14 +35,17 @@
 <p id="result3"></p>
 <p id="result4"></p>
 <p id="result5"></p>
-
+<p id="result6"></p>
 <script>
+   
+
     // Funktion zur Berechnung der monatlichen Kreditrate
     function kreditrateBerechnen(kreditbetrag, zinssatz, jahre) {
         const r = (zinssatz / 100) / 12; // Monatlicher Zinssatz
         const n = jahre * 12; // Anzahl der Monate
         return (kreditbetrag * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     }
+    
 
     // Event-Listener für den Button
     document.getElementById("berechnen-button").addEventListener("click", () => {
@@ -52,14 +55,16 @@
         const zinsen = parseFloat(document.getElementById("zinsen").value);
         const rate = parseFloat(document.getElementById("rate").value);
 
+    // Schleife Volltilgung
+    const monatliche = kreditrateBerechnen(kreditbetrag, zinsen, jahre); 
+
         // Validierung
         if (isNaN(kreditbetrag) || isNaN(jahre) || isNaN(zinsen)) {
             document.getElementById("result1").innerText = "Bitte gültige Werte eingeben!";
             return;
         }
-
-        // Berechnung
-        const monatliche = kreditrateBerechnen(kreditbetrag, zinsen, jahre);
+        //Anuität berechnen
+        let anu = rate * 12;
 
         // Ergebnisse anzeigen
         document.getElementById("result1").innerText = `Kreditbetrag: ${kreditbetrag} €`;
@@ -67,6 +72,7 @@
         document.getElementById("result3").innerText = `Zinssatz: ${zinsen} %`;
         document.getElementById("result4").innerText = `Monatliche Rate: ${rate} €`;
         document.getElementById("result5").innerText = `Rate bei Volltilgung: ${monatliche.toFixed(2)} €`;
+        document.getElementById("result6").innerText = `Anuität: ${anu} €`;
     });
 </script>
 
