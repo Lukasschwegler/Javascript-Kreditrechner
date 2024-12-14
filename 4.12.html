@@ -7,16 +7,56 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
 
-        input, button {
+        
+        .impressum {
+
+            position: absolute;
+            top: 0px;
+            right: 0;
+            width: 90px;
+            height: 20px;
+            text-decoration: none;
+            color:  #fff; /* Weiß */
+            background-color: #007BFF; /* Dunkelblau */
+            text-align: center;
+            line-height: 17px; /* Vertikal zentriert */
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+                
+              }
+      
+
+        .container {
+            max-width: 800px;
+            margin: 10px auto;
             padding: 10px;
-            margin: 5px 0;
-            width: 100%;
-            max-width: 300px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
+
+
+        h2, h3 {
+            text-align: center;
+        }
+
+
+        input, button {
+            padding: 2px;
+            margin: 1px 0;
+            width: 80%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
 
         button {
             background-color: #007BFF;
@@ -25,9 +65,11 @@
             cursor: pointer;
         }
 
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #007BEE;
         }
+
 
         table {
             width: 100%;
@@ -35,18 +77,23 @@
             margin-top: 20px;
         }
 
+
         table, th, td {
             border: 1px solid #ddd;
         }
+
 
         th, td {
             padding: 8px;
             text-align: center;
         }
 
+
         th {
-            background-color: #f4f4f4;
+            background-color: #007BFF;
+            color: white;
         }
+
 
         .results {
             margin-top: 20px;
@@ -54,58 +101,69 @@
     </style>
 </head>
 <body>
+<div class="impressum">
+    <a href="URL">Impressum</a>  
 
-<h2>Kreditrechner</h2>
-
-<!-- Eingabefelder -->
-<label for="kreditbetrag">Kreditbetrag (€)</label>
-<input type="number" id="kreditbetrag" placeholder="Betrag in Euro" required>
-
-<label for="jahre">Laufzeit (Jahre)</label>
-<input type="number" id="jahre" placeholder="Laufzeit in Jahren" required>
-
-<label for="zinsen">Zinssatz (%)</label>
-<input type="number" id="zinsen" placeholder="Zinssatz in Prozent" required>
-
-<label for="rate">Monatliche Rate (€)</label>
-<input type="number" id="rate" placeholder="Betrag in Euro" required>
-
-<button id="berechnen-button">Berechnen</button>
-
-<!-- Ergebnisse -->
-<div class="results">
-    <h3>Ergebnisse</h3>
-    <p id="result1"></p>
-    <p id="result2"></p>
-    <p id="result3"></p>
-    <p id="result4"></p>
-    <p id="result5"></p>
-    <p id="result6"></p>
-    <p id="result7"></p>
-    <p id="result8"></p>
 </div>
 
-<!-- Tabelle für Tilgungsverlauf -->
-<h3>Tilgungsverlauf</h3>
-<table id="tilgungsverlauf">
-    <thead>
-        <tr>
-            <th>Monat</th>
-            <th>Zinsanteil (€)</th>
-            <th>Tilgung (€)</th>
-            <th>Restschuld (€)</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div class="container">
+    
+
+
+    <!-- Eingabefelder -->
+    <label for="kreditbetrag">Kreditbetrag (€)</label>
+    <input type="number" id="kreditbetrag" placeholder="Betrag in Euro" required>
+    <br><br>
+    <label for="jahre">Laufzeit (Jahre)</label>
+    <input type="number" id="jahre" placeholder="Laufzeit in Jahren" required>
+    <br><br>
+    <label for="zinsen">Zinssatz (%)</label>
+    <input type="number" id="zinsen" placeholder="Zinssatz in Prozent" required>
+    <br><br>
+    <label for="rate">Monatliche Rate (€)</label>
+    <input type="number" id="rate" placeholder="Betrag in Euro" required>
+    <br><br>
+    <button id="berechnen-button">Berechnen</button>
+
+
+    <!-- Ergebnisse -->
+    <div class="results">
+        
+        <p id="result1"></p>
+        <p id="result2"></p>
+        <p id="result3"></p>
+        <p id="result4"></p>
+        <p id="result5"></p>
+        <p id="result6"></p>
+        <p id="result7"></p>
+        <p id="result8"></p>
+    </div>
+
+
+    <!-- Tabelle für Tilgungsverlauf -->
+    
+    <table id="tilgungsverlauf">
+        <thead>
+            <tr>
+                <th>Monat</th>
+                <th>Zinsanteil (€)</th>
+                <th>Tilgung (€)</th>
+                <th>Restschuld (€)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
 
 <script>
- // Funktion zur Berechnung der monatlichen Kreditrate (Annuität)
- function kreditrateBerechnen(kreditbetrag, zinssatz, jahre) {
+// Funktion zur Berechnung der monatlichen Kreditrate (Annuität)
+function kreditrateBerechnen(kreditbetrag, zinssatz, jahre) {
     const r = (zinssatz / 100) / 12; // Monatlicher Zinssatz
     const n = jahre * 12; // Anzahl der Monate
     return (kreditbetrag * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
+
 
 // Funktion zur Berechnung des Tilgungsverlaufs
 function tilgungsverlauf(kreditbetrag, zinssatz, jahre, monatlicheRate) {
@@ -113,10 +171,12 @@ function tilgungsverlauf(kreditbetrag, zinssatz, jahre, monatlicheRate) {
     let verlauf = [];
     const r = zinssatz / 100 / 12; // Monatlicher Zinssatz
 
+
     for (let monat = 1; monat <= jahre * 12; monat++) {
         let zinsanteil = restschuld * r; // Zinsen für den Monat
         let tilgung = monatlicheRate - zinsanteil; // Tilgungsanteil
         restschuld -= tilgung; // Restschuld aktualisieren
+
 
         verlauf.push({
             monat: monat,
@@ -125,36 +185,35 @@ function tilgungsverlauf(kreditbetrag, zinssatz, jahre, monatlicheRate) {
             restschuld: restschuld > 0 ? restschuld.toFixed(2) : "0.00"
         });
 
+
         if (restschuld <= 0) break; // Kredit vollständig getilgt
     }
     return verlauf;
 }
+
 
 // Ergebnisse und Verlauf anzeigen
 function anzeigenErgebnisse(verlauf, monatlicheRateVolltilgung, kreditbetrag, jahre, zinsen, monatlicheRate) {
     let gesamtZinsen = 0;
     let gesamtZahlung = 0;
 
-    // Gesamte Zinsen und Gesamtrückzahlung berechnen
+
     verlauf.forEach(eintrag => {
-        gesamtZinsen += parseFloat(eintrag.zinsanteil); // Zinsen aufsummieren
-        gesamtZahlung += monatlicheRate; // Gesamtrückzahlung aufsummieren
+        gesamtZinsen += parseFloat(eintrag.zinsanteil);
+        gesamtZahlung += monatlicheRate;
     });
     anu = monatlicheRate * 12;
 
-    // Ergebnisse anzeigen
-    document.getElementById("result1").innerText = `Kreditbetrag: ${kreditbetrag.toFixed(2)} €`;
-    document.getElementById("result2").innerText = `Laufzeit: ${jahre} Jahre`;
-    document.getElementById("result3").innerText = `Zinssatz: ${zinsen.toFixed(2)} %`;
-    document.getElementById("result4").innerText = `Monatliche Rate: ${monatlicheRate.toFixed(2)} €`;
+
+   
     document.getElementById("result5").innerText = `Rate bei Volltilgung: ${monatlicheRateVolltilgung} €`;
     document.getElementById("result6").innerText = `Gesamte Zinsen: ${gesamtZinsen.toFixed(2)} €`;
-    document.getElementById("result7").innerText = `Gesamte Rückzahlung: ${gesamtZahlung.toFixed(2)} €`; // Gesamtrückzahlung anzeigen
+    document.getElementById("result7").innerText = `Gesamte Rückzahlung: ${gesamtZahlung.toFixed(2)} €`;
     document.getElementById("result8").innerText = `Anuität: ${anu.toFixed(2)} €`;
 
-    // Tilgungsverlauf in Tabelle anzeigen
+
     const tbody = document.querySelector("#tilgungsverlauf tbody");
-    tbody.innerHTML = ""; // Vorherige Daten löschen
+    tbody.innerHTML = "";
     verlauf.forEach(eintrag => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -167,14 +226,14 @@ function anzeigenErgebnisse(verlauf, monatlicheRateVolltilgung, kreditbetrag, ja
     });
 }
 
-// Event-Listener für den Button
+
 document.getElementById("berechnen-button").addEventListener("click", () => {
     const kreditbetrag = parseFloat(document.getElementById("kreditbetrag").value);
     const jahre = parseInt(document.getElementById("jahre").value);
     const zinsen = parseFloat(document.getElementById("zinsen").value);
     const monatlicheRate = parseFloat(document.getElementById("rate").value);
 
-    // Validierung
+
     if (isNaN(kreditbetrag) || kreditbetrag <= 0 ||
         isNaN(jahre) || jahre <= 0 ||
         isNaN(zinsen) || zinsen <= 0 ||
@@ -183,13 +242,15 @@ document.getElementById("berechnen-button").addEventListener("click", () => {
         return;
     }
 
+
     const monatlicheRateVolltilgung = kreditrateBerechnen(kreditbetrag, zinsen, jahre).toFixed(2);
     const verlauf = tilgungsverlauf(kreditbetrag, zinsen, jahre, monatlicheRate);
 
+
     anzeigenErgebnisse(verlauf, monatlicheRateVolltilgung, kreditbetrag, jahre, zinsen, monatlicheRate);
 });
-
 </script>
+
 
 </body>
 </html>
